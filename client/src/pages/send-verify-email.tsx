@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Heading } from "@chakra-ui/react";
-import { Form, Formik, FormikHelpers } from "formik";
+import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import Wrapper from "../components/Wrapper";
 import { MeDocument, SendVerifyEmailMutationVariables, useSendVerifyEmailMutation } from "../generated/graphql";
