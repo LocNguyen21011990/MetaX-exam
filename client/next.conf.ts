@@ -8,7 +8,8 @@ export default {
         GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
         FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
         FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
-        SECRET: process.env.SECRET
+        SECRET: process.env.SECRET,
+        NODE_ENV: process.env.NODE_ENV
     }
 }
 

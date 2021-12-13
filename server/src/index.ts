@@ -58,6 +58,8 @@ const main = async () => {
     await mongoose.connect(mongoUrl);
     console.log("Mongo connected");
 
+    app.set('trust proxy', 1)
+
     app.use(session({
         name: COOKIE_NAME,
         store: MongoStore.create({ mongoUrl }),
@@ -65,8 +67,7 @@ const main = async () => {
             maxAge: 1000 * 60 * 60,
             httpOnly: true,
             secure: __prod__,
-            sameSite: 'lax',
-            domain: __prod__ ? '.vercel.app' : undefined
+            sameSite: 'none'
         },
         secret: process.env.SESSION_SECRET_DEV_PROD as string,
         saveUninitialized: false,
