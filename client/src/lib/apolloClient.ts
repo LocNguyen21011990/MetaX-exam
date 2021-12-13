@@ -6,7 +6,6 @@ import {
 	InMemoryCache,
 	NormalizedCacheObject
 } from '@apollo/client'
-// import { concatPagination } from '@apollo/client/utilities'
 import merge from 'deepmerge'
 import isEqual from 'lodash/isEqual'
 import { IncomingHttpHeaders } from 'http'
@@ -49,8 +48,8 @@ function createApolloClient(headers: IncomingHttpHeaders | null = null) {
 	const httpLink = new HttpLink({
 		uri:
 			process.env.NODE_ENV === 'production'
-				? process.env.SERVER_URL_PROD
-				: process.env.SERVER_URL_Dev,
+                ? 'http://warm-spire-75446.herokuapp.com/graphql'
+                : 'http://localhost:2101/graphql',
 		credentials: 'include', // Additional fetch() options like `credentials` or `headers`
 		fetch: enhancedFetch
 	})

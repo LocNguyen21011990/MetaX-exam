@@ -1,9 +1,10 @@
 import { ChakraProvider } from '@chakra-ui/react'
+import { SessionProvider } from "next-auth/react"
 import theme from '../theme'
 import { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client'
+import React from 'react'
 import { useApollo } from '../lib/apolloClient'
-import { SessionProvider } from 'next-auth/react'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const apolloClient = useApollo(pageProps);
