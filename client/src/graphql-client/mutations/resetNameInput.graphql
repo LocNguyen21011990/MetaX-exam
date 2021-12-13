@@ -1,0 +1,5 @@
+mutation ResetName($resetNameInput: ResetNameInput!) {
+	resetName(resetNameInput: $resetNameInput) {
+		...userMutationResponse
+	}
+}

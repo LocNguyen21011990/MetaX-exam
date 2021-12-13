@@ -1,0 +1,5 @@
+query getLoggedUser {
+    getLoggedUser {
+        ...userInfo
+    }
+}

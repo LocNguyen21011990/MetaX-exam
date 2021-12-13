@@ -1,0 +1,5 @@
+mutation oAuth($oauthInput: OauthInput!) {
+	oAuth(oauthInput: $oauthInput) {
+		...userMutationResponse
+    }
+}

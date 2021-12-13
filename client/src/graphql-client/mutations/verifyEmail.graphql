@@ -1,0 +1,14 @@
+mutation verifyEmail (
+	$token: String!
+	$userId: String!
+) {
+    verifyEmail(
+        token: $token
+        userId: $userId
+    ) {
+        ...userMutationResponse
+        user {
+        ...userInfo
+        }
+    }
+}

@@ -1,0 +1,13 @@
+mutation sendVerifyEmail(
+	$email: String!
+	$userId: String!
+) {
+	sendVerifyEmail(
+		email: $email
+		userId: $userId
+	) {
+        code
+        success
+        message
+    }
+}
