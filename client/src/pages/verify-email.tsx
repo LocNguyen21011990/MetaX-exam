@@ -13,8 +13,8 @@ const VerifyEmail = () => {
     const {token, userId} = router.query;
 
     useEffect(() => {
+        
         if(!token && !userId) return;
-
         const verify = async () => {
             const response = await verifyEmail({
                 variables: {
@@ -37,13 +37,13 @@ const VerifyEmail = () => {
                     break
                 case 200:
                     setResult(`
-                        Click <a href="/" style="color:#FF0000;">here</a> to simple dashboard.
+                        Click <a href="/" style="color:#FF0000;">here</a> to go simple dashboard.
                     `)
                     break
             }
         } 
         verify();
-    }, []);
+    }, [token, userId]);
 
     return (
         <Wrapper>
