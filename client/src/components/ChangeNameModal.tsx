@@ -15,7 +15,7 @@ import { MeDocument, MeQuery, ResetNameInput, useResetNameMutation } from "../ge
 import { EditIcon } from "@chakra-ui/icons";
 
 const ChangeNameModal = props => {
-    const [resetName, { loading, data }] = useResetNameMutation()
+    const [resetName, _] = useResetNameMutation()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const toast = useToast();
 
@@ -55,7 +55,7 @@ const ChangeNameModal = props => {
     return (
         <>
             <Box mt={4}>Email: {authData.email}</Box>
-            <Box mt={4} >{authData.name ?? ''} {authData.name ? <EditIcon onClick={onOpen} color='teal' _hover={{ cursor: 'pointer' }}/> : ''}</Box>
+            <Box mt={4} >{authData.name ?? ''} {authData.name ? <EditIcon onClick={onOpen} color='teal' _hover={{ cursor: 'pointer' }}/> : error}</Box>
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
@@ -64,28 +64,24 @@ const ChangeNameModal = props => {
                     <ModalBody>
                     <Formik initialValues={initialValues} onSubmit={onResetNameSubmit}>
                         {({ values, isSubmitting }) =>
-                            !loading && data ? (
-                                <Box dangerouslySetInnerHTML={{ __html: data.resetName.code === 200 ? emailLink : error }}></Box>
-                            ) : (
-                                <Form>
-                                    <InputField
-                                        name='name'
-                                        placeholder='Name'
-                                        label='Name'
-                                        type='text'
-                                    />
-                                    <Button
-                                        type='submit'
-                                        colorScheme='teal'
-                                        mt={4}
-                                        isFullWidth
-                                        disabled={!values.name}
-                                        isLoading={isSubmitting}
-                                    >
-                                        Save
-                                    </Button>
-                                </Form>
-                            )
+                            <Form>
+                                <InputField
+                                    name='name'
+                                    placeholder='Name'
+                                    label='Name'
+                                    type='text'
+                                />
+                                <Button
+                                    type='submit'
+                                    colorScheme='teal'
+                                    mt={4}
+                                    isFullWidth
+                                    disabled={!values.name}
+                                    isLoading={isSubmitting}
+                                >
+                                    Save
+                                </Button>
+                            </Form>
                         }
                     </Formik>
                     </ModalBody>
