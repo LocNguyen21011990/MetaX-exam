@@ -20,7 +20,7 @@ const Register = () => {
 
     const initialValues: RegisterInput = { email: '', password: '' }
 
-    const [registerUser, { loading: _registerUserLoading, error }] = useRegisterMutation()
+    const [registerUser, { loading: _registerUserLoading }] = useRegisterMutation()
 
     const onRegisterSubmit = async (values: RegisterInput, {setErrors}: FormikHelpers<RegisterInput>) => {
         const response = await registerUser({

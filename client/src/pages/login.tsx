@@ -20,7 +20,7 @@ const Login = () => {
 
     const initialValues: LoginInput = { email: '', password: '' }
 
-    const [loginUser, { loading: _loginUserLoading, error }] = useLoginMutation()
+    const [loginUser, { loading: _loginUserLoading }] = useLoginMutation()
 
     const onLoginSubmit = async (values: LoginInput, {setErrors}: FormikHelpers<LoginInput>) => {
         const response = await loginUser({

@@ -28,7 +28,7 @@ const SendVerifyEmail = () => {
     
     const [sendVerifyEmail, _] = useSendVerifyEmailMutation()
 
-    const onSubmit = async (values: SendVerifyEmailMutationVariables, {setErrors}: FormikHelpers<SendVerifyEmailMutationVariables>) => {
+    const onSubmit = async (values: SendVerifyEmailMutationVariables) => {
         const response = await sendVerifyEmail({
             variables: {
                 email: values.email,
