@@ -9,11 +9,11 @@ import ChangeNameModal from "../components/ChangeNameModal";
 const Index = () => {
     const { data: authData, loading: authLoading } = useCheckAuth()
 
-    if (authLoading) {
+    if (authLoading || (!authLoading && !authData?.me)) {
         return (<>
                     <Navbar/>
                     <Flex justifyContent='center' alignItems='center' minH='100vh'>
-                        <Spinner />
+                    {authLoading && <Spinner />}
                     </Flex>
                 </>)
     }
