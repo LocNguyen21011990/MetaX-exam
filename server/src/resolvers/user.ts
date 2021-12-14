@@ -6,7 +6,7 @@ import { RegisterInput } from "../types/RegisterInput";
 import { validatePasswordInput, validateConfirmPasswordInput } from "../utils/validatePasswordInput";
 import { LoginInput } from "../types/LoginInput";
 import { Context } from "../types/Context";
-import { COOKIE_NAME, __prod__ } from "../constants";
+import { COOKIE_NAME, emailRegexp, __prod__ } from "../constants";
 import { checkAuth } from "../middleware/checkAuth";
 import { TokenModel } from "../models/Token";
 import { v4 as uuidv4 } from 'uuid'
@@ -47,6 +47,21 @@ export class UserResolver {
 
         try {
             const { email, password } = registerInput;
+
+            if(emailRegexp.test(email)) {
+                return {
+                    code: 400,
+                    success: false,
+                    message: 'Email invalid',
+                    errors: [
+                        {
+                            field: 'email',
+                            message: `Email invalid`
+                        }
+                    ]
+                }
+            }
+
             const existingEmail = await User.findOne({ email });
             if(existingEmail) return {
                 code: 400,
