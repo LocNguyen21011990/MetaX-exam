@@ -9,7 +9,7 @@ import {
     ModalBody,
     ModalCloseButton,
   } from '@chakra-ui/react'
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikHelpers } from "formik";
 import InputField from "../components/InputField";
 import { MeDocument, MeQuery, ResetNameInput, useResetNameMutation } from "../generated/graphql";
 import { EditIcon } from "@chakra-ui/icons";
@@ -40,6 +40,7 @@ const ChangeNameModal = props => {
         });
 
         if(response.data?.resetName.errors) {
+            console.log('truesdsajdajdsh')
             setErrors(mapFieldErrors(response.data?.resetName.errors));
         }
 
