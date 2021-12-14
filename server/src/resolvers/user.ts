@@ -449,7 +449,7 @@ export class UserResolver {
 			userId: `${user.id}`,
 			token: hashedResetToken
 		}).save()
-        console.log('forgotPasswordInput', forgotPasswordInput)
+
         const html = `
         <html>
         <p>Dear valued User,</p>
