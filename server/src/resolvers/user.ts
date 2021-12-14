@@ -109,6 +109,20 @@ export class UserResolver {
         @Ctx() { req }: Context
     ) : Promise<UserMutationResponse> {
         try {
+            
+            if(emailRegexp.test(email)) {
+                return {
+                    code: 400,
+                    success: false,
+                    message: 'Email invalid',
+                    errors: [
+                        {
+                            field: 'email',
+                            message: `Email invalid`
+                        }
+                    ]
+                }
+            }
 
             const existingUser = await User.findOne({ email });
             if(!existingUser) {
