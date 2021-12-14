@@ -13,6 +13,7 @@ import { Form, Formik } from "formik";
 import InputField from "../components/InputField";
 import { MeDocument, MeQuery, ResetNameInput, useResetNameMutation } from "../generated/graphql";
 import { EditIcon } from "@chakra-ui/icons";
+import { mapFieldErrors } from "../helpers/mapFieldErrors";
 
 const ChangeNameModal = props => {
     const [resetName, _] = useResetNameMutation()
@@ -23,7 +24,7 @@ const ChangeNameModal = props => {
     const initialValues = { name: authData.name }
     const [ error, setError ] = useState('');
 
-    const onResetNameSubmit = async (values: ResetNameInput) => {
+    const onResetNameSubmit = async (values: ResetNameInput, {setErrors}: FormikHelpers<ResetNameInput>) => {
         const response = await resetName({ 
             variables: { resetNameInput: values },
             update: (cache, { data }) => {
@@ -37,6 +38,10 @@ const ChangeNameModal = props => {
                 }
             }
         });
+
+        if(response.data?.resetName.errors) {
+            setErrors(mapFieldErrors(response.data?.resetName.errors));
+        }
 
         if(response.data?.resetName.success && response.data?.resetName.code === 200) {
             toast({
