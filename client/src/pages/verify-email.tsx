@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useVerifyEmailMutation } from '../generated/graphql'
-import { Box } from '@chakra-ui/react'
+import { Box, Flex, Spinner } from '@chakra-ui/react'
 import Wrapper from '../components/Wrapper';
 
 const VerifyEmail = () => {
@@ -9,7 +9,7 @@ const VerifyEmail = () => {
     const router = useRouter();
     const [result, setResult] = useState('');
     const [message, setMessage] = useState('');
-    const [verifyEmail, _] = useVerifyEmailMutation();
+    const [verifyEmail, {loading, data}] = useVerifyEmailMutation();
     const {token, userId} = router.query;
 
     useEffect(() => {
@@ -46,12 +46,18 @@ const VerifyEmail = () => {
     }, [token, userId]);
 
     return (
-        <Wrapper>
-            <Box color="red">{message}</Box>
-            <Box mt={4}>
-                <div dangerouslySetInnerHTML={{ __html: result }}></div>
-            </Box>
-        </Wrapper>
+        
+        (loading && !data) ? 
+            <Flex height="100vh" alignItems="center" justifyContent="center">
+                <Spinner size='xl' />
+            </Flex>
+            : 
+            <Wrapper>
+                <Box color="red">{message}</Box>
+                <Box mt={4}>
+                    <div dangerouslySetInnerHTML={{ __html: result }}></div>
+                </Box>
+            </Wrapper>
     )
 }
 
