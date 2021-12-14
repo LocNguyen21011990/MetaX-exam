@@ -35,8 +35,7 @@ export class UserResolver {
 
     @Mutation(_returns => UserMutationResponse)
     async register(
-        @Arg('registerInput') registerInput: RegisterInput,
-        @Ctx() { req }: Context
+        @Arg('registerInput') registerInput: RegisterInput
     ) : Promise<UserMutationResponse> {
 
         const validatePassword = validatePasswordInput(registerInput.password);
@@ -68,8 +67,6 @@ export class UserResolver {
             });
 
             const createdUser = await User.save(newUser);
-
-            req.session.userId = createdUser.id;
 
             return {
                 code: 200,
