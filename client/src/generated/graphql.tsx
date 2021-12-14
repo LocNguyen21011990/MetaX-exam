@@ -31,6 +31,7 @@ export type FieldError = {
 
 export type ForgotPasswordInput = {
   email: Scalars['String'];
+  isChangePassword?: InputMaybe<Scalars['String']>;
 };
 
 export type IMutationResponse = {
@@ -111,7 +112,6 @@ export type OauthInput = {
 export type Query = {
   __typename?: 'Query';
   getLoggedUser: User;
-  hello: Array<User>;
   me?: Maybe<User>;
 };
 

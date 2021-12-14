@@ -67,7 +67,7 @@ const ChangePassword = () => {
 		}
 	}
 
-	if (authLoading || (!authLoading && authData?.me)) {
+	if (authLoading) {
 		return (
 			<Flex justifyContent='center' alignItems='center' minH='100vh'>
 				<Spinner />
@@ -94,13 +94,16 @@ const ChangePassword = () => {
 				<Formik initialValues={initialValues} onSubmit={onChangePasswordSubmit}>
 					{({ isSubmitting }) => (
 						<Form>
-							<InputField
-								name='oldPassword'
-								placeholder='Old password'
-								label='Old password'
-								type='password'
-							/>
-                            <Box mt={4}>
+							{
+								query.isChangePassword === "1" &&
+									(<InputField
+										name='oldPassword'
+										placeholder='Old password'
+										label='Old password'
+										type='password'
+									/>
+							)}
+							<Box mt={4}>
                             <InputField
 								name='newPassword'
 								placeholder='New password'

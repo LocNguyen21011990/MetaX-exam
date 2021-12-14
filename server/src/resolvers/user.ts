@@ -377,23 +377,25 @@ export class UserResolver {
 				return {
 					code: 400,
 					success: false,
-					message: 'User no longer exists',
+					message: 'User does not exist.',
 					errors: [{ field: 'token', message: 'User no longer exists' }]
 				}
 			}
 
-            const oldPasswordValid = await argon2.verify(user.password, changePasswordInput.oldPassword);
-            if(!oldPasswordValid) {
-                return { 
-                    code: 400,
-                    success: false,
-                    message: 'Wrong password',
-                    errors: [
-                        {
-                            field: 'oldPassword',
-                            message: 'Wrong password. Please try again'
-                        }
-                    ]
+            if(changePasswordInput.oldPassword) {
+                const oldPasswordValid = await argon2.verify(user.password, changePasswordInput.oldPassword);
+                if(!oldPasswordValid) {
+                    return { 
+                        code: 400,
+                        success: false,
+                        message: 'Wrong password.',
+                        errors: [
+                            {
+                                field: 'oldPassword',
+                                message: 'Wrong password. Please try again'
+                            }
+                        ]
+                    }
                 }
             }
 
@@ -434,7 +436,7 @@ export class UserResolver {
             return {
                 code: 404,
                 success: false,
-                message: 'User no longer exists'
+                message: 'User does not exist.'
             }
         }
 
@@ -447,14 +449,13 @@ export class UserResolver {
 			userId: `${user.id}`,
 			token: hashedResetToken
 		}).save()
-
+        console.log('forgotPasswordInput', forgotPasswordInput)
         const html = `
         <html>
         <p>Dear valued User,</p>
-
         <p><a href="${__prod__
             ? process.env.CORS_ORIGIN_PROD
-            : process.env.CORS_ORIGIN_DEV}/change-password?token=${resetToken}&userId=${user.id}">Click here to reset your password</a></p>
+            : process.env.CORS_ORIGIN_DEV}/change-password?token=${resetToken}&userId=${user.id}&isChangePassword=${forgotPasswordInput.isChangePassword}">Click here to reset your password</a></p>
 
         <p>Kindly regards</p>
         `;

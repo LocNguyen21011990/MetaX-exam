@@ -1,31 +1,13 @@
-import { Box, Flex, Heading, Link, Button } from '@chakra-ui/react'
+import { Box, Flex, Heading, Link } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import {
-	MeDocument,
-	MeQuery,
-	useLogoutMutation,
 	useMeQuery
 } from '../generated/graphql'
-import { signOut } from 'next-auth/react'
+import MainMenu from './MainMenu'
 
 const Navbar = () => {
 	const { data, loading: useMeQueryLoading } = useMeQuery()
-	const [logout, { loading: useLogoutMutationLoading }] = useLogoutMutation()
-
-	const logoutUser = async () => {
-		await logout({
-			update(cache, { data }) {
-				if (data?.logout) {
-					signOut({redirect: false}).then(() => {
-						cache.writeQuery<MeQuery>({
-							query: MeDocument,
-							data: { me: null }
-						})
-					});
-				}
-			}
-		})
-	}
+	
 
 	let body
 
@@ -45,9 +27,7 @@ const Navbar = () => {
 	} else {
 		body = (
 			<Flex>
-				<Button onClick={logoutUser} isLoading={useLogoutMutationLoading}>
-					Logout
-				</Button>
+				<MainMenu dataMe={data.me}/>
 			</Flex>
 		)
 	}

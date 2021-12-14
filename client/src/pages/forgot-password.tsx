@@ -9,11 +9,15 @@ import {
 import { useCheckAuth } from '../utils/useCheckAuth'
 import NextLink from 'next/link'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 const ForgotPassword = () => {
 	const { data: authData, loading: authLoading } = useCheckAuth()
+	const { query } = useRouter();
 
-	const initialValues = { email: '' }
+	console.log({authData, authLoading})
+
+	const initialValues = { email: '', isChangePassword: query.isChangePassword } as ForgotPasswordInput;
     const [emailLink, setEmailLink] = useState('');
     const [error, setError] = useState('');
 
@@ -30,7 +34,7 @@ const ForgotPassword = () => {
         }
 	}
 
-	if (authLoading || (!authLoading && authData?.me)) {
+	if (authLoading) {
 		return (
 			<Flex justifyContent='center' alignItems='center' minH='100vh'>
 				<Spinner />
@@ -43,7 +47,11 @@ const ForgotPassword = () => {
 				<Formik initialValues={initialValues} onSubmit={onForgotPasswordSubmit}>
 					{({ values, isSubmitting }) =>
 						!loading && data ? (
-							<Box dangerouslySetInnerHTML={{ __html: data.forgotPassword.code === 200 ? emailLink : error }}></Box>
+							<Box dangerouslySetInnerHTML={{ 
+								__html: data.forgotPassword.code === 200 
+								? emailLink 
+								: `${error} Please click <a href="/register" style="color:#FF0000;">here</a> to register your account.`
+							}}></Box>
 						) : (
 							<Form>
 								<InputField

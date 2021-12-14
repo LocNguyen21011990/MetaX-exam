@@ -7,3 +7,8 @@ export const PASSWORD_FIELD_NAME = {
     new: 'newPassword',
     confirm: 'confirmPassword'
 }
+
+export enum IsChangePassword {
+    No = "0",
+    Yes = "1",
+}
