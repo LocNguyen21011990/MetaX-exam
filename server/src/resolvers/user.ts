@@ -496,6 +496,20 @@ export class UserResolver {
                 }
             }
 
+            if(!resetNameInput.name.trim()) {
+                return {
+                    code: 400,
+                    success: false,
+                    message: 'Name is empty or invalid',
+                    errors: [
+                        {
+                            field: 'name',
+                            message: 'Name is empty or invalid'
+                        }
+                    ]
+                }
+            }
+
             loggedUser.name = resetNameInput.name;
 
             const updatedUser = await loggedUser.save();
