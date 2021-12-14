@@ -26,7 +26,7 @@ import { useCheckAuth } from '../utils/useCheckAuth'
 const ChangePassword = () => {
 	const { query } = useRouter();
 
-	const { data: authData, loading: authLoading } = useCheckAuth();
+	const { data: _authData, loading: authLoading } = useCheckAuth();
 
 	const initialValues = { oldPassword: '', newPassword: '', confirmPassword: '' }
 

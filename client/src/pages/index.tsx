@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/NavBar";
-import { Heading } from '@chakra-ui/react';
+import { Flex, Heading, Spinner } from '@chakra-ui/react';
 import { useCheckAuth } from "../utils/useCheckAuth";
 import Layout from "../components/Layout";
 
@@ -9,8 +9,13 @@ import ChangeNameModal from "../components/ChangeNameModal";
 const Index = () => {
     const { data: authData, loading: authLoading } = useCheckAuth()
 
-    if (authLoading || (!authLoading && !authData?.me)) {
-        return (<Navbar/>)
+    if (authLoading) {
+        return (<>
+                    <Navbar/>
+                    <Flex justifyContent='center' alignItems='center' minH='100vh'>
+                        <Spinner />
+                    </Flex>
+                </>)
     }
     else {
         return (
